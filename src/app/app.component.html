@@ -1,0 +1,22 @@
+<!-- <nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="currentUser">
+    <div class="navbar-nav">
+        <a class="nav-item nav-link" routerLink="/">Home</a>
+        <a class="nav-item nav-link pull-right" (click)="logout()">Logout</a>
+    </div>
+</nav> -->
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<nav class="navbar navbar-default" *ngIf="currentUser">
+    <div class="container-fluid">
+      <ul class="nav navbar-nav">
+        <li><a routerLink="employeelist">Employee List</a></li>
+        <li><a href="#">Create</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a class="nav-item nav-link pull-right" (click)="logout()">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+<router-outlet></router-outlet>

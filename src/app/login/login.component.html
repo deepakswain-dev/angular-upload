@@ -1,0 +1,32 @@
+
+
+
+<form #LogInForm="ngForm" (ngSubmit)="LogIn()">
+    <div id="login">
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12 divCenter">
+                        <div id="login-form" class="form" action="" method="post">
+                            <h3 class="text-center text-info">Login</h3>
+                            <div class="form-group" [class.has-error]="UserName.invalid && UserName.touched">
+                                <label for="UserName" class="control-label" class="text-info">Username:</label><br>
+                                <input type="text" required name="UserName" autocomplete="off" [(ngModel)]="txtUserName" id="username" #UserName="ngModel" class="form-control">
+                            </div>
+                            <div class="form-group" [class.has-error]="Password.invalid && Password.touched">
+                                <label for="password" class="control-label" class="text-info">Password:</label><br>
+                                <input type="text" required autocomplete="off" name="Password" [(ngModel)]="txtPassword" #Password="ngModel" id="password" class="form-control">
+                            </div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <div class="form-group">
+                                <button type="submit" [disabled]="LogInForm.invalid" class="btn btn-primary">Log in..</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="showLoadingIndecator" class="spinner"></div>
+</form>
+

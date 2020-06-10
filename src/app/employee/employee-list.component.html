@@ -1,0 +1,62 @@
+
+<div class="wrapper">
+  <div class="card">
+    <div class="thead">
+      <input type="text" style="float:right; width: 300px;" (keyup)="ApplyFilter($event.target.value)" placeholder="search for"
+        class="form-control-sm top-margin form-control">
+    </div>
+  </div>
+</div>
+<br>
+<br>
+  <div> 
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 table-hover">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
+      <td mat-cell *matCellDef="let element; let i = index;"> {{i+1}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="contactPreference">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact Preference </th>
+      <td mat-cell *matCellDef="let element"> {{element.contactPreference}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="dateOfBirth">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Of Birth </th>
+      <td mat-cell *matCellDef="let element"> {{element.dateOfBirth}} </td>
+    </ng-container>
+    <ng-container matColumnDef="department">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Department </th>
+      <td mat-cell *matCellDef="let element"> {{element.department}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+    </ng-container>
+    <ng-container matColumnDef="gender">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Gender </th>
+      <td mat-cell *matCellDef="let element"> {{element.gender}} </td>
+    </ng-container>
+    <ng-container matColumnDef="isActive">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> IsActive </th>
+      <td mat-cell *matCellDef="let element"> {{element.isActive}} </td>
+    </ng-container>
+    <ng-container matColumnDef="phoneNumber">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone Number </th>
+      <td mat-cell *matCellDef="let element"> {{element.phoneNumber}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index;" [class.selected]="selectedRow == row.id" (click)="rowClick(row.id)"></tr>
+  </table>
+
+  <!-- Angular 8 pagination -->
+  <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+  <div *ngIf="showLoadingIndecator" class="spinner"></div>
+</div>

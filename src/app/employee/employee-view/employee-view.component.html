@@ -1,0 +1,202 @@
+<form #employeeForm="ngForm" (submit)="OnUpdateEmployee()">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="height: 55px;">
+                        <input type="button" class="btn btn-default pull-right"
+                            value="{{isEdit==true ? 'Cancel Edit' : 'Edit Profile' }}" (click)="EditEmployee()">
+                    </div>
+                    <div class="panel-body">
+                        <div class="box box-info">
+                            <div class="box-body">
+                                <div class="col-sm-6">
+                                    <div align="center">
+                                        <img alt="User Pic" [src]="employee?.photoPath"
+                                            class="img-thumbnail img-responsive"
+                                            (click)="isEdit ? fileInput.click(): ''" style="height:250px;width: 250px ;"
+                                            [ngClass]="{'classPointer': isEdit}">
+                                        <span>
+                                            <input id="imageFile" class="hidden" (change)="OnImageUpload($event)"
+                                                #fileInput type="file">
+                                            <div style="color:#999;" *ngIf="isEdit">click here to change profile image</div>
+                                            <!--Upload Image Js And Css-->
+                                        </span>
+                                    </div>
+                                    <br>
+                                    <!-- /input-group -->
+                                </div>
+                                <div class="col-sm-6">
+                                    <span *ngIf="isDisplay">
+                                        <h2 style="color:#00b1b1;">{{employee?.name}}</h2>
+                                    </span>
+                                    <span *ngIf="isEdit" [class.has-error]="name.invalid && name.touched">
+                                        <input type="text" style="width: 350px;" #name="ngModel" required name="name"
+                                            class="form-control" [(ngModel)]="employee.name">
+                                        <span class="help-block" *ngIf="name.errors?.required">
+                                            Name is required
+                                        </span>
+                                    </span>
+                                    <span *ngIf="isDisplay">
+                                        <h2>{{employee?.department}}</h2>
+                                    </span>
+                                    <span *ngIf="isEdit" [class.has-error]="department.invalid && department.touched">
+                                        <div class="clearfix"></div>
+                                        <div class="bot-border"></div>
+                                        <select id="department" selectValidator="select" #department="ngModel" required
+                                            class="form-control" style="width:200px;" name="department"
+                                            [(ngModel)]="employee.department">
+                                            <option value="select">Select Department</option>
+                                            <option *ngFor="let dept of ddlDepartment" [value]="dept.name">{{dept.name}}
+                                            </option>
+                                        </select>
+                                        <span class="help-block"
+                                            *ngIf="department.touched && department.errors?.defaultSelected">
+                                            Department is required
+                                        </span>
+                                    </span>
+
+                                </div>
+                                <div class="clearfix"></div>
+                                <hr style="margin:5px 0 5px 0;">
+
+                                <div class="col-sm-offset-2 col-sm-5 col-xs-6 tital ">Employee Id:</div>
+                                <div class="col-sm-5 col-xs-6" *ngIf="isDisplay">{{employee?.id}}</div>
+                                <div class="col-sm-5 col-xs-6" *ngIf="isEdit">
+                                    <input type="text" class="form-control" disabled value="{{employee?.id}}">
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="bot-border"></div>
+
+                                <div class="col-sm-offset-2 col-sm-5 col-xs-6 tital ">Gender:</div>
+                                <div class="col-sm-5" *ngIf="isDisplay"> {{employee?.gender}}</div>
+                                <div class="col-sm-5" *ngIf="isEdit">
+                                    <div class="form-control">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="gender" required value="Male" #gender="ngModel"
+                                                [(ngModel)]="employee.gender">
+                                            Male
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="gender" required #gender="ngModel" value="Female"
+                                                [(ngModel)]="employee.gender">
+                                            Female
+                                        </label>
+                                    </div>
+                                    <span class="help-block" *ngIf="gender.invalid && gender.touched">
+                                        Gender is required
+                                    </span>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="bot-border"></div>
+
+                                <div class="col-sm-offset-2 col-sm-5 col-xs-6 tital ">Email Id:</div>
+                                <div class="col-sm-5" *ngIf="isDisplay">{{employee?.email}}</div>
+                                <div class="col-sm-5" *ngIf="isEdit" [class.has-error]="email.invalid && email.touched">
+                                    <input type="email" #email="ngModel" required email class="form-control"
+                                        name="email" [(ngModel)]="employee.email">
+                                    <span class="help-block" *ngIf="email.errors?.required && email.touched">
+                                        Email is required
+                                    </span>
+                                    <span class="help-block" *ngIf="email.errors?.email && email.touched">
+                                        Email is invalid
+                                    </span>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="bot-border"></div>
+
+                                <div class="col-sm-offset-2 col-sm-5 col-xs-6 tital ">Phone Number:</div>
+                                <div class="col-sm-5" *ngIf="isDisplay">{{employee?.phoneNumber}}</div>
+                                <div class="col-sm-5" *ngIf="isEdit"
+                                    [class.has-error]="phoneNumber.invalid && phoneNumber.touched">
+                                    <input type="number" maxlength="10" pattern="[0-9]*" class="form-control" required
+                                        #phoneNumber="ngModel" name="phoneNumber" [(ngModel)]="employee.phoneNumber">
+                                    <span class="help-block" *ngIf="phoneNumber.invalid && phoneNumber.touched">
+                                        Phone is required
+                                    </span>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="bot-border"></div>
+
+                                <div class="col-sm-offset-2 col-sm-5 col-xs-6 tital ">Contact Preference:</div>
+                                <div class="col-sm-5" *ngIf="isDisplay">{{employee?.contactPreference}}</div>
+                                <div class="col-sm-5" *ngIf="isEdit">
+                                    <div class="form-control"
+                                        [class.has-error]="contactPreference.invalid && contactPreference.touched">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="contactPreference" required
+                                                #contactPreference="ngModel" value="Email"
+                                                [(ngModel)]="employee.contactPreference">
+                                            Email
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="contactPreference" required
+                                                #contactPreference="ngModel" value="Phone"
+                                                [(ngModel)]="employee.contactPreference">
+                                            Phone
+                                        </label>
+                                    </div>
+                                    <span class="help-block"
+                                        *ngIf="contactPreference.invalid && contactPreference.touched">
+                                        Contact Preference is required
+                                    </span>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="bot-border"></div>
+
+                                <div class="col-sm-offset-2 col-sm-5 col-xs-6 tital ">Date Of Birth:</div>
+                                <div class="col-sm-5" *ngIf="isDisplay">{{employee?.dateOfBirth}}</div>
+                                <div class="col-sm-5" *ngIf="isEdit"
+                                    [class.has-error]="dateOfBirth.invalid && dateOfBirth.touched">
+                                    <input type="text" class="form-control" name="dateOfBirth"
+                                        [(ngModel)]="employee.dateOfBirth" required #dateOfBirth="ngModel">
+                                    <span class="help-block" *ngIf="dateOfBirth.invalid && dateOfBirth.touched">
+                                        Date of birth is required
+                                    </span>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="bot-border"></div>
+
+                                <div class="col-sm-offset-2 col-sm-5 col-xs-6 tital ">Is Active:</div>
+                                <div class="col-sm-5" *ngIf="isDisplay">{{employee?.isActive? 'Yes':'No'}}</div>
+                                <div class="col-sm-5" *ngIf="isEdit">
+                                    <div class="from-group">
+                                        <div class="form-control">
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" value="isActive" name="isActive"
+                                                    [(ngModel)]='employee.isActive'>
+                                                IsActive
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="bot-border"></div>
+
+                                <div class="col-sm-offset-2 col-sm-5 col-xs-6 tital ">Password:</div>
+                                <div class="col-sm-5" *ngIf="isDisplay">{{employee?.password}}</div>
+                                <div class="col-sm-5" *ngIf="isEdit"
+                                    [class.has-error]="password.invalid && password.touched">
+                                    <input type="text" name="password" required #password="ngModel" class="form-control"
+                                        [(ngModel)]="employee.password">
+                                    <span class="help-block" *ngIf="password.invalid && password.touched">
+                                        Password is required
+                                    </span>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.box -->
+
+                        </div>
+
+
+                    </div>
+                    <div class="panel-footer" style="height: 55px;" *ngIf="isEdit">
+                        <button type="submit" [disabled]="employeeForm.invalid" style="width: 100px;"
+                            class="btn btn-primary pull-right">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
